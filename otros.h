@@ -5,16 +5,16 @@
 #include <fstream>
 using namespace std;
 
-bool leerCSV(const string& Archivo, int arr[], int n) {
+bool leerCSV(const string& Archivo, long long arr[], long long n) {
     ifstream archivo(Archivo);
     if (!archivo) {
         cerr << "No se pudo abrir el archivo: " << Archivo << endl;
         return false;
     }
 
-    int num;
+    long long num;
     char coma;
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         if (!(archivo >> num)) {
             cerr << "Error leyendo numero " << i << endl;
             return false;
@@ -26,7 +26,7 @@ bool leerCSV(const string& Archivo, int arr[], int n) {
     return true;
 }
 
-void imprimirArray(int arr[], int n) {
+void imprimirArray(long long arr[], long long n) {
     for (int i = 0; i < n; i++) {
         cout << arr[i] << " ";
     }

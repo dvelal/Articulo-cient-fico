@@ -8,29 +8,24 @@ int main(){
     const int n = 1000;
     int A[n];
 
-    if (!leerCSV("array_1000.csv", A, n)) {
-        return 1; // error al leer archivo
+
+    for (long i = 0; i < 30; i ++){
+        if (!leerCSV("array_1000.csv", A, n)) {
+            return 1; // error al leer archivo
+        }
+
+        auto inicio = chrono::steady_clock::now();
+
+        interDirDer(A, n);
+
+        auto fin = chrono::steady_clock::now();
+        cout << "========================" << endl;
+        cout << chrono::time_point_cast<chrono::nanoseconds>(inicio).time_since_epoch().count() << endl; //Punto en el tiempo (inicio del conteo)
+        cout << chrono::time_point_cast<chrono::nanoseconds>(fin).time_since_epoch().count() << endl; //Punto en el tiempo (fin del conteo)
+        cout << "Time difference = " << endl;
+        cout << chrono::duration_cast<chrono::nanoseconds>(fin - inicio).count() << "[ns]" << endl;
+        cout << chrono::duration_cast<chrono::microseconds>(fin - inicio).count() << "[us]" << endl;
+        cout << chrono::duration_cast<chrono::milliseconds>(fin - inicio).count() << "[ms]" << endl;
     }
-
-    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-
-    interDirDer(A, n);
-
-    chrono::steady_clock::time_point end = chrono::steady_clock::now();
-    
-    cout << "Time difference = ";
-    cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "[ms]" << endl;
-    
-    cout << "Time difference = ";
-    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[us]" << endl;
-    
-    cout << "Time difference = ";
-    cout << chrono::duration_cast<chrono::nanoseconds>(end - begin).count() << "[ns]" << endl;
-
-    cout << "Array ordenado: ";
-    for (int i = 0; i < n; i++)
-        cout << A[i] << " ";
-    cout << endl;
-
     return 0;
 }

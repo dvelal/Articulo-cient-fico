@@ -2,38 +2,54 @@
 #include "otros.h"
 #include <chrono>
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
-    const long long n = 1000;
+    const long long n = 10;
     long long A[n];
     long long B[n];
+    
+
+    ofstream archivo("resultados.csv");
+    archivo << "algoritmo,n,patron,repeticion,tiempo_ns,comparaciones,intercambios\n";
+    string patron = "aleatorio";
 
 
     for (long long i = 0; i < 30; i ++){
-        if (!leerCSV("array_1000.csv", A, n))
+        if (!leerCSV("array_10.csv", A, n))
             return 1; // error al leer archivo
-        if (!leerCSV("array_1000.csv", B, n))
-            return 1; // error al leer archivo
+
+        long long comp = 0;
+        long long inter = 0;
 
         auto inicio1 = chrono::steady_clock::now();
-        InsercionBin(A, n);
+        InsercionBin(A, n, comp, inter);
         auto fin1 = chrono::steady_clock::now();
 
-        auto inicio2 = chrono::steady_clock::now();
-        RadixSort(B, n);
-        auto fin2 = chrono::steady_clock::now();
+        auto tiempo1 = chrono::duration_cast<chrono::nanoseconds>(fin1 - inicio1).count();
 
-        cout << "========================" << endl;
-
-        cout << "Tiempo Algoritmo de Insercion Binaria = " << endl;
-        cout << chrono::duration_cast<chrono::nanoseconds>(fin1 - inicio1).count() << "[ns]" << endl;
-        cout << chrono::duration_cast<chrono::microseconds>(fin1 - inicio1).count() << "[us]" << endl;
-
-        cout << "Tiempo Algoritmo de RadixSort = " << endl;
-        cout << chrono::duration_cast<chrono::nanoseconds>(fin2 - inicio2).count() << "[ns]" << endl;
-        cout << chrono::duration_cast<chrono::microseconds>(fin2 - inicio2).count() << "[us]" << endl;
+        archivo << "Insercion Binaria," << n << "," << patron << "," << (i + 1) << ","
+        << tiempo1 << "," << comp << "," << inter << "\n";
     }
 
+    for (long long i = 0; i < 30; i ++){
+        if (!leerCSV("array_1000.csv", B, n))
+            return 1;
+
+        long long comp = 0;
+        long long inter = 0;
+
+        auto inicio2 = chrono::steady_clock::now();
+        RadixSort(B, n, comp, inter);
+        auto fin2 = chrono::steady_clock::now();
+
+        auto tiempo2 = chrono::duration_cast<chrono::nanoseconds>(fin2 - inicio2).count();
+
+        archivo << "Insercion Binaria," << n << "," << patron << "," << (i + 1) << ","
+        << tiempo2 << "," << comp << "," << inter << "\n";
+    }
+
+    archivo.close();
     return 0;
 }

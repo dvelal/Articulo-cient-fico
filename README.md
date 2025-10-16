@@ -62,6 +62,6 @@ algoritmo: 		    Nombre del método de ordenamiento utilizado.
 n: 			          Tamaño del arreglo que se ordenó.
 patron: 		      Tipo o patrón de los datos usados.
 repetición: 		  Número de la ejecución o prueba.
-tiempo_ns: 		    Tiempo total que tardó el algoritmo en ordenar el arreglo, medido en nanosegundos.
+tiempo_ns: 		    Tiempo total que tardó el algoritmo en ordenar el arreglo, medido en microsegundos.
 comparaciones:		Número total de comparaciones realizadas entre elementos durante el ordenamiento.
 intercambios:		  Cantidad de movimientos o asignaciones realizadas para reordenar los elementos.

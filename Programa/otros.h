@@ -20,7 +20,7 @@ bool leerCSV(const string& Archivo, long long arr[], long long n) {
             return false;
         }
         arr[i] = num;
-        archivo >> coma; 
+        if (i < n - 1) archivo >> coma;
     }
     archivo.close();
     return true;

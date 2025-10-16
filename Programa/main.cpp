@@ -21,16 +21,16 @@ int main(){
     string m;
     cout << "NomArchivo.csv: " << endl;
     getline(cin, m);
-    long long A[n];
-    long long B[n];
+    long long* A = new long long[n];
+    long long* B = new long long[n];
 
 
-    ofstream archivo("resultados.csv");
-    archivo << "algoritmo,n,patron,repeticion,tiempo_ns,comparaciones,intercambios\n";
+    ofstream archivo(m + "_resultados.csv");
+    archivo << "algoritmo,n,patron,repeticion,tiempo_us,comparaciones,intercambios\n";
     archivo << "\n";
 
     string ruta = "../Data/" + m;
-
+    
     for (long long i = 0; i < 30; i ++){
         if (!leerCSV(ruta.c_str(), A, n))
             return 1; // error al leer archivo
@@ -42,7 +42,7 @@ int main(){
         InsercionBin(A, n, comp, inter);
         auto fin1 = chrono::steady_clock::now();
 
-        auto tiempo1 = chrono::duration_cast<chrono::nanoseconds>(fin1 - inicio1).count();
+        auto tiempo1 = chrono::duration_cast<chrono::microseconds>(fin1 - inicio1).count();
 
         archivo << "Insercion Binaria," << n << "," << patron << "," << (i + 1) << ","
         << tiempo1 << "," << comp << "," << inter << "\n";
@@ -61,11 +61,13 @@ int main(){
         RadixSort(B, n, comp, inter);
         auto fin2 = chrono::steady_clock::now();
 
-        auto tiempo2 = chrono::duration_cast<chrono::nanoseconds>(fin2 - inicio2).count();
+        auto tiempo2 = chrono::duration_cast<chrono::microseconds>(fin2 - inicio2).count();
 
         archivo << "Radix sort," << n << "," << patron << "," << (i + 1) << ","
         << tiempo2 << "," << comp << "," << inter << "\n";
     }
+    delete[] A;
+    delete[] B;
     archivo.close();
     return 0;
 }

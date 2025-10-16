@@ -6,25 +6,33 @@
 using namespace std;
 
 int main(){
+
+    system("cls");
+
     long long n;
     cout << "Cantidad de elementos:" << endl;
     cin >> n;
     cin.ignore();
+
+    string patron;
+    cout << "Patron:" << endl;
+    getline(cin, patron);
+
     string m;
-    cout << "Archivo.csv:" << endl;
+    cout << "NomArchivo.csv: " << endl;
     getline(cin, m);
     long long A[n];
     long long B[n];
-    string patron;
-    cout << "Patron" << endl;
-    getline(cin, patron);
+
 
     ofstream archivo("resultados.csv");
     archivo << "algoritmo,n,patron,repeticion,tiempo_ns,comparaciones,intercambios\n";
     archivo << "\n";
 
+    string ruta = "../Data/" + m;
+
     for (long long i = 0; i < 30; i ++){
-        if (!leerCSV(m.c_str(), A, n))
+        if (!leerCSV(ruta.c_str(), A, n))
             return 1; // error al leer archivo
 
         long long comp = 0;
@@ -43,7 +51,7 @@ int main(){
     archivo << "\n";
 
     for (long long i = 0; i < 30; i ++){
-        if (!leerCSV(m.c_str(), B, n))
+        if (!leerCSV(ruta.c_str(), B, n))
             return 1;
 
         long long comp = 0;

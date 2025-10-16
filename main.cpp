@@ -6,18 +6,25 @@
 using namespace std;
 
 int main(){
-    const long long n = 10;
+    long long n;
+    cout << "Cantidad de elementos:" << endl;
+    cin >> n;
+    cin.ignore();
+    string m;
+    cout << "Archivo.csv:" << endl;
+    getline(cin, m);
     long long A[n];
     long long B[n];
-    
+    string patron;
+    cout << "Patron" << endl;
+    getline(cin, patron);
 
     ofstream archivo("resultados.csv");
     archivo << "algoritmo,n,patron,repeticion,tiempo_ns,comparaciones,intercambios\n";
-    string patron = "aleatorio";
-
+    archivo << "\n";
 
     for (long long i = 0; i < 30; i ++){
-        if (!leerCSV("array_10.csv", A, n))
+        if (!leerCSV(m.c_str(), A, n))
             return 1; // error al leer archivo
 
         long long comp = 0;
@@ -33,8 +40,10 @@ int main(){
         << tiempo1 << "," << comp << "," << inter << "\n";
     }
 
+    archivo << "\n";
+
     for (long long i = 0; i < 30; i ++){
-        if (!leerCSV("array_1000.csv", B, n))
+        if (!leerCSV(m.c_str(), B, n))
             return 1;
 
         long long comp = 0;
@@ -46,10 +55,9 @@ int main(){
 
         auto tiempo2 = chrono::duration_cast<chrono::nanoseconds>(fin2 - inicio2).count();
 
-        archivo << "Insercion Binaria," << n << "," << patron << "," << (i + 1) << ","
+        archivo << "Radix sort," << n << "," << patron << "," << (i + 1) << ","
         << tiempo2 << "," << comp << "," << inter << "\n";
     }
-
     archivo.close();
     return 0;
 }
